@@ -7,16 +7,16 @@ on:
         description: 'Pon tu nombre'
         required: True
         default: 'Juan'
-        type: String
+        type: string
       edad:
         description: 'Ingresa tu edad'
         required: True
-        type: Integer
+        type: integer
       saludar:
         description: '¿Quieres un saludo personalizado?'
         required: False
         default: False
-        type: Boolean
+        type: boolean
         
 jobs:
   nombre:
@@ -25,18 +25,18 @@ jobs:
       - name: Checkout
         uses: actions/Checkout@v3
       - name: saludar
-        run: echo Hola! ${{ nombre }}
+        run: echo "Hola! ${{ github.event.inputs.nombre }}"
   edad-mayor: 
-    if: ${{ edad >= 18}}
+    if: ${{ github.event.inputs.edad >= 18 }}
     runs-on: ubuntu-latest
     steps: 
       - name: Checkout
         uses: actions/Checkout@v3
       - name: decir mayoría
-        run: echo Eres mayor de edad, tu edad es de ${{ edad }}
+        run: echo "Eres mayor de edad, tu edad es de ${{ github.event.inputs.edad }}"
   
   uso-dispatch:
-    if: ${{ github.event_name == 'workflow_dispatch' && saludar }}
+    if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.saludar }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
