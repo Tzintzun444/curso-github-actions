@@ -25,18 +25,18 @@ jobs:
       - name: Checkout
         uses: actions/Checkout@v3
       - name: saludar
-        run: echo Hola! ${{ inputs.nombre }}
+        run: echo Hola! ${{ nombre }}
   edad-mayor: 
-    if: ${{ inputs.edad >= 18}}
+    if: ${{ edad >= 18}}
     runs-on: ubuntu-latest
     steps: 
       - name: Checkout
         uses: actions/Checkout@v3
       - name: decir mayoría
-        run: echo Eres mayor de edad, tu edad es de ${{ inputs.edad }}
+        run: echo Eres mayor de edad, tu edad es de ${{ edad }}
   
   uso-dispatch:
-    if: ${{ github.event_name == 'workflow_dispatch' && inputs.saludar }}
+    if: ${{ github.event_name == 'workflow_dispatch' && saludar }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
