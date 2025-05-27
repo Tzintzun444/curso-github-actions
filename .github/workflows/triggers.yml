@@ -1,0 +1,43 @@
+name: triggers-action
+run-name: Aprendiendo triggers
+on: 
+  push: 
+    branches:
+      - 'aprendiendo-github-actions'
+  workflow_dispatch:
+   inputs:
+     lenguaje_favorito: 
+       description: 'Lenguaje favorito'
+       default: 'Python'
+       required: True
+       type: choice
+       options:
+         - 'Python'
+         - 'Javascript'
+         - 'C++'
+     tu_nombre: 
+       description: 'Introduce tu nombre'
+       required: True
+       type: string
+       default: 'Chucho'
+  schedule:
+    - cron: '15 7,19 1,30 * *'
+
+jobs:
+  hola-mundo-triggers:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/Checkout@v3
+      - name: Hola mundo}
+        run: python main.py
+  hola-mundo-dispatch:
+    if: ${{ github.event_name != 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: action/checkout@v3
+      - name: run dispatch
+        run: python dispatch.py
+     
+      
