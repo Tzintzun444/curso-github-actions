@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: action/Checkout@v3
+        uses: actions/Checkout@v3
       - name: run dispatch
         run: python dispatch.py
      
