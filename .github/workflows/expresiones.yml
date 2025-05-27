@@ -1,47 +1,27 @@
-name: expressions
-run-name: aprendiendo a usar expresiones en actions
-on: 
+name: Expresiones
+run-name: ¡Estoy aprendiendo a usar Expresiones!
+on:
   workflow_dispatch:
     inputs:
+      edad:
+        description: 'Edad'
+        required: true
+        type: integer
       nombre:
-        description: 'Pon tu nombre'
-        required: True
+        description: 'Tu nombre'
+        required: true
         default: 'Juan'
         type: string
-      edad:
-        description: 'Ingresa tu edad'
-        required: True
-        type: integer
-      saludar:
-        description: '¿Quieres un saludo personalizado?'
-        required: False
-        default: False
-        type: boolean
-        
 jobs:
-  nombre:
+  mayor:
+    if: ${{ inputs.edad >= 18 }} 
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/Checkout@v3
-      - name: saludar
-        run: echo "Hola! ${{ github.event.inputs.nombre }}"
-  edad-mayor: 
-    if: ${{ github.event.inputs.edad >= 18 }}
-    runs-on: ubuntu-latest
-    steps: 
-      - name: Checkout
-        uses: actions/Checkout@v3
-      - name: decir mayoría
-        run: echo "Eres mayor de edad, tu edad es de ${{ github.event.inputs.edad }}"
-  
-  uso-dispatch:
-    if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.saludar }}
+      - name: Correr script
+        run: echo ${{ inputs.nombre }} es mayor de edad
+  menor:
+    if: ${{ inputs.edad < 18 }} 
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/Checkout@v3
-      - name: saludar con main
-        run: python main.py
-      - name: saludar con dispatch
-        run: python dispatch.py
+      - name: Correr script
+        run: echo ${{ inputs.nombre }} es menor de edad
