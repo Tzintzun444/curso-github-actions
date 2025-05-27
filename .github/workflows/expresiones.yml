@@ -1,0 +1,47 @@
+name: expressions
+run-name: aprendiendo a usar expresiones en actions
+on: 
+  workflow_dispatch:
+    inputs:
+      nombre:
+        description: 'Pon tu nombre'
+        required: True
+        default: 'Juan'
+        type: String
+      edad:
+        description: 'Ingresa tu edad'
+        required: True
+        type: Integer
+      saludar:
+        description: '¿Quieres un saludo personalizado?'
+        required: False
+        default: False
+        type: Boolean
+        
+jobs:
+  nombre:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/Checkout@v3
+      - name: saludar
+        run: echo Hola! ${{nombre}}
+  edad-mayor: 
+    if: ${{ edad >= 18}}
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout
+        uses: actions/Checkout@v3
+      - name: decir mayoría
+        run: echo Eres mayor de edad, tu edad es de ${{ edad }}
+  
+  uso-dispatch:
+    if: ${{ github.event_name == 'workflow_dispatch' && saludar }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/Checkout@v3
+      - name: saludar con main
+        run: python main.py
+      - name: saludar con dispatch
+        run: python dispatch.py
