@@ -1,0 +1,9 @@
+name: Contextos
+run-name: Ejercicio de correr contextos
+on: [push]
+jobs:
+  llamada:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Llamar a usuario
+      run: echo 'Saludos al usuario $GITHUB_ACTOR'
