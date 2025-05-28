@@ -1,0 +1,59 @@
+name: ejemplo-variables
+run-name: Este es un ejemplo de variables en un workflow
+on: 
+  workflow_dispatch:
+    inputs:
+      dia_semana:
+        type: choices
+        required: true
+        default: 'Lunes'
+        options:
+          - 'Lunes'
+          - 'Martes'
+          - 'Miercoles'
+          - 'Jueves'
+          - 'Viernes'
+          - 'Sabado'
+          - 'Domingo'
+      mensaje:
+        type: choices
+        required: true
+        default: 'saludar'
+        options:
+          - 'saludar'
+          - 'despedir'
+      nombre:
+        type: string
+        required: true
+env: 
+  DIA_DE_SEMANA: ${{ inputs.dia_semana }} en root
+jobs:
+  dia-semana:
+    runs-on: ubuntu-latest
+    steps:
+      - name: dia de la semana
+        run: echo $DIA_DE_SEMANA
+  nombre: 
+    runs-on: ubuntu-latest
+    env: 
+      NOMBRE: Tu nombre es ${{ inputs.nombre }} en un job
+    steps: 
+      - name: Nombrar en actions
+        run: echo $NOMBRE
+  saludar:
+    if: ${{ inputs.mensaje == 'saludar'}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: saludar a usuario
+        run: echo $SALUDO
+        env: 
+          SALUDO: Hola, ${{ inputs.nombre }}, desde un step
+  despedir:
+    if: ${{ inputs.mensaje == 'despedir'}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: despedir a usuario
+        run: echo $DESPEDIDA
+        env: 
+          SALUDO: Adiós, ${{ inputs.nombre }}, desde un step
+        
