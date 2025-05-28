@@ -6,4 +6,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Llamar a usuario
-      run: echo 'Saludos al usuario $GITHUB_ACTOR'
+      run: echo "Saludos al usuario ${{ github.actor }}"
