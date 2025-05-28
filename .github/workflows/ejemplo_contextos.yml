@@ -1,0 +1,10 @@
+name: Ejemplo-contextos
+run-name: Este es un ejemplo del uso de contextos
+on: [push]
+jobs:
+  check-main:
+    if: ${{ github.ref == 'refs/heads/main'}}
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Anuncio
+        run: echo "Desplegando el actions en $GITHUB_REF"
